@@ -1,48 +1,26 @@
-#include "Coordinates.h"
-float operator++(Coordinates& crd_1);
-Coordinates::Coordinates(const Coordinates& obj) 
-{
-    this->x = obj.x;
-    this->y = obj.y;
-    this->z = obj.z;
+#include "Train.h"
+
+TRAIN::TRAIN() : destination(""), trainNumber(0), departureTime("00:00") {}
+
+TRAIN::TRAIN(string destination, int trainNumber, string departureTime)
+    : destination(destination), trainNumber(trainNumber), departureTime(departureTime) {}
+
+string TRAIN::getDestination() const { return destination; }
+int TRAIN::getTrainNumber() const { return trainNumber; }
+
+ostream& operator<<(ostream& os, const TRAIN& train) {
+    os << "Destination: " << train.destination
+       << ", Train Number: " << train.trainNumber
+       << ", Departure Time: " << train.departureTime;
+    return os;
 }
-Coordinates Coordinates::operator++(int) 
-{
-    this->x += 1.5;
-    this->y += 1.5;
-    this->z += 1.5;
-    return Coordinates(*this);
-}
-Coordinates Coordinates::operator--(int) 
-{
-    this->x -= 5.9;
-    this->y -= 5.9;
-    this->z -= 5.9;
-    return Coordinates(*this);
-}
-Coordinates Coordinates::operator--() 
-{
-    float tmp_x = this->x,
-    tmp_y = this->y,
-    tmp_z = this->z;
-    this->x -= tmp_y;
-    this->y -= tmp_z;
-    this->z -= tmp_x;
-    return Coordinates(*this);
-}
-float operator++(Coordinates& crd_1)
-{
-    return (crd_1.x + crd_1.y + crd_1.z);
-}
-bool Coordinates::operator!=(Coordinates& second)
-{
-    if ((this->getX() != second.getX()) || (this -> getY() != second.getY()) || (this->getZ() != second.getZ()))
-    return true;
-    return false;
-}
-bool Coordinates::operator==(Coordinates& second)
-{
-    if ((this->getX() == second.getX()) && (this -> getY() == second.getY()) && (this->getZ() == second.getZ()))
-    return true;
-    return false;
+
+istream& operator>>(istream& is, TRAIN& train) {
+    cout << "Enter destination: ";
+    is >> train.destination;
+    cout << "Enter train number: ";
+    is >> train.trainNumber;
+    cout << "Enter departure time (HH:MM): ";
+    is >> train.departureTime;
+    return is;
 }
