@@ -11,19 +11,21 @@ using namespace std;
 class TRAIN {
 private:
     string destination;
-    int trainNumber;
-    string departureTime; // формат HH:MM
+    int number;
+    string time; 
 
 public:
     TRAIN();
-    TRAIN(string destination, int trainNumber, string departureTime);
+    TRAIN(string destination, int number, string time);
 
-    // Методы доступа
-    string getDestination() const;
-    int getTrainNumber() const;
-    string getDepartureTime() const;
-
-    // Дружественные функции для ввода и вывода
+    string getDestination();
+    void setDestination(const string &destination);
+    int getNumber();
+    void setNumber(const int &number);
+    string gettime();
+    void settime(const string &timer);
+    void print();
+    void edit();
     friend ostream& operator<<(ostream& os, const TRAIN& train);
     friend istream& operator>>(istream& is, TRAIN& train);
 };

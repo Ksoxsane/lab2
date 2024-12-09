@@ -5,12 +5,12 @@ int main() {
         int wordCount;
         cout << "Enter amount of words in sentence: ";
         if (!(cin >> wordCount)) {
-            throw invalid_argument("Error: некорректный ввод количества слов.");
+            throw invalid_argument("Incorrect input of the number of words.");
         }
         int choice;
-        cout << "Enter choice (1 - stroka, 2 - file): ";
+        cout << "Line or File?\n 1 - Line\n 2 - File\n";
         if (!(cin >> choice)) {
-            throw invalid_argument("Error: некорректный ввод выбора источника.");
+            throw invalid_argument("Incorrect input of the source selection.");
         }
         if (choice == 1) {
             cin.ignore();
@@ -18,9 +18,9 @@ int main() {
             cout << "Enter text: ";
             cin.getline(text, sizeof(text));
             if (cin.fail()) {
-                throw overflow_error("Error: превышена максимальная длина текста.");
+                throw overflow_error("Out of range.");
             }
-            SentenceFilter filter(text, wordCount, true);
+            Filter filter(text, wordCount, true);
             filter.result();
         } else if (choice == 2) {
             char filename[256];
@@ -28,29 +28,29 @@ int main() {
             cin >> filename;
             ifstream file(filename);
             if (!file) {
-                throw runtime_error("Error: файл не найден или не может быть открыт.");
+                throw runtime_error("The file was not found or could not be opened.");
             }
             file.close();
-            SentenceFilter filter(filename, wordCount);
+            Filter filter(filename, wordCount);
             filter.result();
         } else {
-            throw out_of_range("Error: выбран несуществующий источник.");
+            throw out_of_range("A non-existent source has been selected");
         }
     }
     catch (const invalid_argument& e) {
-        cerr << e.what() << endl;
+        cerr << "Error: " << e.what() << endl;
         return 1;
     }
     catch (const overflow_error& e) {
-        cerr << e.what() << endl;
+        cerr << "Error: " << e.what() << endl;
         return 2;
     }
     catch (const runtime_error& e) {
-        cerr << e.what() << endl;
+        cerr << "Error: " << e.what() << endl;
         return 3;
     }
     catch (const out_of_range& e) {
-        cerr << e.what() << endl;
+        cerr << "Error: " << e.what() << endl;
         return 4;
     }
     catch (...) {

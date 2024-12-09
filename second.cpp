@@ -1,22 +1,21 @@
 #include "second.h"
-SentenceFilter::SentenceFilter() : source(""), count(0), isTextSource(false)
+Filter::Filter() : source(""), count(0), isTextSource(false)
 {
-    cout << "The constructor is called without parameters for the SentenceFilter class\n";
+    cout << "The constructor is called without parameters for the Filter class\n";
 }
-SentenceFilter::SentenceFilter(const string& filename, int count) : source(filename), count(count), isTextSource(false) {
-    cout << "The constructor is called with parameters for the SentenceFilter class\n";
+Filter::Filter(const string& filename, int count) : source(filename), count(count), isTextSource(false) {
+    cout << "The constructor is called with parameters for the Filter class\n";
 }
-SentenceFilter::SentenceFilter(const string& text, int count, bool isText) : source(text), count(count), isTextSource(isText) {
-    cout << "The constructor is called with parameters for the SentenceFilter class\n";
+Filter::Filter(const string& text, int count, bool isText) : source(text), count(count), isTextSource(isText) {
+    cout << "The constructor is called with parameters for the Filter class\n";
 }
-SentenceFilter::SentenceFilter(const SentenceFilter& other) : source(other.source), count(other.count),
-isTextSource(other.isTextSource) {
-    cout << "The copy constructor for the SentenceFilter class is called\n";
+Filter::Filter(const Filter& other) : source(other.source), count(other.count), isTextSource(other.isTextSource) {
+    cout << "The copy constructor for the Filter class is called\n";
 }
-SentenceFilter::~SentenceFilter() {
-    cout << "The destructor for the SentenceFilter class is called\n";
+Filter::~Filter() {
+    cout << "The destructor for the Filter class is called\n";
 }
-void SentenceFilter::result() const {
+void Filter::result() const {
     string text;
 
     if (isTextSource) {
@@ -36,7 +35,7 @@ void SentenceFilter::result() const {
     cout << "Your text:\n" << text << "\n\n";
     string* sentences = nullptr;
     int sentenceCount = 0;
-    split_into_sent(text, sentences, sentenceCount);
+    split(text, sentences, sentenceCount);
     cout << "Amount of sentences: " << sentenceCount << endl;
     for (int i = 0; i < sentenceCount; ++i) 
     {
@@ -47,7 +46,7 @@ void SentenceFilter::result() const {
     }
     delete[] sentences;
 }
-void SentenceFilter::split_into_sent(const string& text, string*& sentences,
+void Filter::split(const string& text, string*& sentences,
 int& sentenceCount) const {
     const int maxSentences = 100;
     sentences = new string[maxSentences];
@@ -67,7 +66,7 @@ int& sentenceCount) const {
         sentences[sentenceCount++] = sentenceStream.str();
     }
 }
-int SentenceFilter::count_words(const string& sentence) const {
+int Filter::count_words(const string& sentence) const {
     int count = 0;
     istringstream ss(sentence);
     string word;

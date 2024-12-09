@@ -6,18 +6,18 @@
 #include <cctype>
 #include <string>
 using namespace std;
-class SentenceFilter {
+class Filter {
     private:
     string source;
     int count;
     bool isTextSource;
-    void split_into_sent(const string& text, string*& sentences, int&sentenceCount) const;
+    void split(const string& text, string*& sentences, int&sentenceCount) const;
     int count_words(const string& sentence) const;
     public:
-    SentenceFilter();
-    SentenceFilter(const string& filename, int wordCount);
-    SentenceFilter(const string& text, int wordCount, bool isText);
-    SentenceFilter(const SentenceFilter& other);
-    ~SentenceFilter();
+    Filter();
+    Filter(const string& filename, int wordCount);
+    Filter(const string& text, int wordCount, bool isText);
+    Filter(const Filter& other);
+    ~Filter();
     void result() const;
 };
